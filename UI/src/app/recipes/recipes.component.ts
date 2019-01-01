@@ -1,4 +1,4 @@
-import { RECIPES } from './../mock-recipes';
+import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,16 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-recipes = RECIPES;
+recipes: Recipe[];
 
 selectedRecipe: Recipe;
 
 onSelect(recipe: Recipe): void {
   this.selectedRecipe = recipe;
 }
-  constructor() { }
+  constructor(private recipeService: RecipeService) {
 
+  }
+
+getRecipes(): void {
+  this.recipeService.getRecipes()
+  .subscribe(r => this.recipes = r);
+}
   ngOnInit() {
+    this.getRecipes();
   }
 
 }
