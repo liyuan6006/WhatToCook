@@ -18,6 +18,22 @@ getRecipes(): void {
   this.recipeService.getRecipes()
   .subscribe(r => this.recipes = r);
 }
+
+add(name:string):void{
+name =name.trimLeft().trimRight();
+if(!name) { return;}
+this.recipeService.addRecipe({name} as Recipe)
+.subscribe(recipe=>{
+  this.recipes.push(recipe)
+})
+}
+
+delete(recipe:Recipe):void{
+  this.recipes=this.recipes.filter(h=>h!==recipe);
+  this.recipeService.deleteRecipe(recipe)
+  .subscribe()
+
+}
   ngOnInit() {
     this.getRecipes();
   }
